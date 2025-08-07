@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body>
+    <div id="reader" style="width: 300px;"></div>
+    <div id="result"></div>
+    <script>
+  function onScanSuccess(decodedText, decodedResult) {
+    // Handle hasil QR code di sini
+    console.log(`Kode terdeteksi: ${decodedText}`);
+    document.getElementById('result').innerText = `Hasil: ${decodedText}`;
+  }
+
+  function onScanError(errorMessage) {
+    // Handle error (opsional)
+    console.warn(`QR scan error: ${errorMessage}`);
+  }
+
+  const html5QrCode = new Html5Qrcode("reader");
+
+  Html5Qrcode.getCameras().then(devices => {
+  if (devices && devices.length) {
+    // Cari kamera yang mengandung kata "front" (kamera depan)
+    const frontCamera = devices.find(device => 
+      device.label.toLowerCase().includes('front')
+    );
+
+    // Gunakan kamera depan jika ada, jika tidak pakai kamera pertama
+    const cameraId = frontCamera ? frontCamera.id : devices[0].id;
+
+    html5QrCode.start(
+      cameraId,
+      {
+        fps: 10,
+        qrbox: 250
+      },
+      onScanSuccess,
+      onScanError
+    );
+  }
+}).catch(err => {
+  console.error("Gagal mendapatkan kamera:", err);
+});
+
+</script>
+</body>
+</html>
