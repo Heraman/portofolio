@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kalkulator CSS Only</title>
+  <style>
+    .result::before {
+      content: "Pilih operasi...";
+    }
+
+    #a1b2:checked ~ .result::before {
+      content: "1 + 2 = 3";
+    }
+
+    #a1b3:checked ~ .result::before {
+      content: "1 + 3 = 4";
+    }
+
+    #a2b2:checked ~ .result::before {
+      content: "2 + 2 = 4";
+    }
+
+    /* Style */
+    .calculator label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Kalkulator Penjumlahan (Simulasi)</h2>
+
+    <!-- Radio buttons untuk berbagai operasi -->
+    <input type="radio" name="calc" id="a1b2" hidden>
+    <label for="a1b2">1 + 2</label>
+
+    <input type="radio" name="calc" id="a1b3" hidden>
+    <label for="a1b3">1 + 3</label>
+
+    <input type="radio" name="calc" id="a2b2" hidden>
+    <label for="a2b2">2 + 2</label>
+
+    <div class="result"></div>
+  </div>
+</body>
+</html>

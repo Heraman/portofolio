@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code Generator</title>
+</head>
+<body>
+  <h2>QR Code Generator</h2>
+  <input type="text" id="text" placeholder="Masukkan teks..." />
+  <button onclick="generateQRCode()">Buat QR Code</button>
+  <div id="qrcode"></div>
+
+  <!-- Pustaka qrcode-generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
+  <script>
+    function generateQRCode() {
+      const text = document.getElementById('text').value;
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = ''; // Kosongkan sebelum render baru
+
+      if (!text) {
+        alert('Masukkan teks terlebih dahulu!');
+        return;
+      }
+
+      const typeNumber = 0; // otomatis
+      const errorCorrectionLevel = 'L';
+      const qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData(text);
+      qr.make();
+
+      qrContainer.innerHTML = qr.createImgTag(6); // ukuran 6 (sesuaikan)
+    }
+  </script>
+</body>
+</html>
