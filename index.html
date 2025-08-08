@@ -1,210 +1,333 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zilfa Ardiansyah || FullStack Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root{
-            --bg:#f5f5f5; --text:#333; --muted:#555; --card:#f9f9f9; --border:#eee; --accent:#333;
-            --maxw:1100px; --radius:12px; --shadow:0 4px 12px rgba(0,0,0,.06);
-            --header-h:64px;
-        }
-        *{box-sizing:border-box; margin:0; padding:0}
-        html{scroll-behavior:smooth}
-        body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
-        img{max-width:100%; height:auto; display:block}
-
-        /* Layout helpers */
-        .container{max-width:var(--maxw); padding:24px; margin-inline:auto}
-        section{scroll-margin-top: calc(var(--header-h) + 16px)}
-
-        /* Header */
-        header{position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--border)}
-        .nav-inner{display:flex; align-items:center; justify-content:space-between; height:var(--header-h); gap:16px; padding-inline:16px}
-        .logo{font-weight:700; color:var(--text); text-decoration:none; font-size:1.25rem}
-
-        nav ul{list-style:none; display:flex; gap:18px}
-        nav a{color:var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:1rem}
-        nav a:hover{background:var(--text); color:#fff}
-
-        /* Mobile nav */
-        .nav-toggle{display:none; background:transparent; border:0; width:40px; height:40px; align-items:center; justify-content:center; border-radius:8px}
-        .nav-toggle:focus-visible{outline:2px solid var(--text)}
-        .hamburger{width:22px; height:2px; background:var(--text); position:relative}
-        .hamburger::before,.hamburger::after{content:""; position:absolute; left:0; right:0; height:2px; background:var(--text)}
-        .hamburger::before{top:-6px} .hamburger::after{top:6px}
-
-        @media (max-width: 900px){
-            .nav-toggle{display:inline-flex}
-            nav{position:fixed; inset:var(--header-h) 0 auto 0; background:#fff; border-bottom:1px solid var(--border); display:none}
-            nav.open{display:block}
-            nav ul{flex-direction:column; padding:12px 16px}
-        }
-
-        /* Hero */
-        #home{display:grid; place-items:center; text-align:center; padding-block:48px}
-        #home h1{font-size:clamp(1.8rem, 4.5vw, 2.8rem); color:#222; margin-bottom:8px}
-        #home p{font-size:clamp(1rem, 2.5vw, 1.2rem); color:var(--muted); margin-bottom:22px}
-        #home img{max-width:240px; border-radius:50%; box-shadow:0 8px 20px rgba(0,0,0,.1); transition:transform .3s}
-        #home img:hover{transform:scale(1.04)}
-
-        /* About */
-        #about{padding-block:48px}
-        #about .card{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px}
-        #about .card > div{background:var(--card); padding:20px 24px; border-radius:var(--radius); box-shadow:var(--shadow); transition:transform .3s}
-        #about .card > div:hover{transform:translateY(-4px)}
-        #about h1{font-size:1.25rem; margin-bottom:10px; color:#222}
-        #about p, #about li{color:var(--muted); font-size:1rem}
-        #about ul{padding-left:18px; list-style:disc}
-
-        /* Sertifikat */
-        #sertifikat{padding-block:48px; text-align:center}
-        #sertifikat .sertifikat{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
-        #sertifikat img{border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.1); transition:transform .3s, box-shadow .3s}
-        #sertifikat img:hover{transform:scale(1.02); box-shadow:0 8px 24px rgba(0,0,0,.18)}
-
-        /* Projects */
-        #project{padding-block:48px}
-        #project .project{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px}
-        #project .project div{background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column}
-        #project h1{font-size:1.1rem; color:#222; margin-bottom:8px}
-        #project p{color:var(--muted); margin:8px 0 14px}
-        #project img{border-radius:10px; margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,.08)}
-        #project button{margin-top:auto; background:var(--accent); color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer}
-        #project button:hover{background:#555}
-
-        /* Contact */
-        #contact{padding-block:48px; display:grid; place-items:center; text-align:center}
-        #contact form{width:min(100%, 640px); display:flex; flex-direction:column; gap:14px}
-        #contact input, #contact textarea{padding:12px 14px; border:1px solid #ccc; border-radius:10px; font:inherit; resize:vertical; min-height:44px}
-        #contact textarea{min-height:160px}
-        #contact input:focus, #contact textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(51,51,51,.1)}
-        #contact button[type=submit]{background:var(--accent); color:#fff; border:0; padding:12px; border-radius:10px; cursor:pointer}
-        #contact button[type=submit]:hover{background:#555}
-
-        /* Utilities for ultra-small screens */
-        @media (max-width:480px){
-            .container{padding:16px}
-            #home img{max-width:180px}
-            .logo{font-size:1.1rem}
-        }
-    </style>
-</head>
-<body id="gg">
-<header>
-    <div class="nav-inner">
-        <a class="logo" href="#gg">Portofolio</a>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
-            <span class="hamburger" aria-hidden="true"></span>
-        </button>
-        <nav id="primary-nav">
-            <ul>
-                <li><a href="#gg">Home</a></li>
-                <li><a href="#about">About me</a></li>
-                <li><a href="#sertifikat">Sertifikat</a></li>
-                <li><a href="#project">Project</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main class="container">
-    <section id="home">
-        <h1>Zilfa Ardiansyah</h1>
-        <p>Seorang yang memiliki minat di FullStack Developer</p>
-        <img src="assets/Photo.png" alt="Foto profil Zilfa" loading="lazy">
-    </section>
-
-    <section id="about">
-        <div class="card">
-            <div>
-                <h1>Personal</h1>
-                <p>Perkenalkan aku Zilfa Ardiansyah, Aku berasal dari Aceh.
-                    Aku memiliki cita-cita menjadi seorang FullStack Developer.
-                </p>
-            </div>
-            <div>
-                <h1>Education</h1>
-                <ul>
-                    <li>MIN 20 Aceh Besar</li>
-                    <li>MTsN 2 Aceh Besar</li>
-                    <li>SMK Negeri 5 Telkom Banda Aceh</li>
-                </ul>
-            </div>
-            <div>
-                <h1>Experience</h1>
-                <p>🏅 Medallion For Excellence LKSN 2025 WebTech</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="sertifikat">
-        <div class="sertifikat">
-            <img src="assets/Sertifikat.png" alt="Sertifikat 1" loading="lazy">
-            <img src="assets/Sertifikat.png" alt="Sertifikat 2" loading="lazy">
-            <img src="assets/Sertifikat.png" alt="Sertifikat 3" loading="lazy">
-        </div>
-    </section>
-
-    <section id="project">
-        <div class="project">
-            <div>
-                <h1>Whatsapp API</h1>
-                <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Pratinjau proyek Whatsapp API" loading="lazy">
-                <p>Unofficial API for beginner</p>
-                <button onclick="wa()">See Project</button>
-            </div>
-            <div>
-                <h1>Whatsapp API</h1>
-                <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Pratinjau proyek Whatsapp API" loading="lazy">
-                <p>Unofficial API for beginner</p>
-                <button onclick="wa()">See Project</button>
-            </div>
-            <div>
-                <h1>Whatsapp API</h1>
-                <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Pratinjau proyek Whatsapp API" loading="lazy">
-                <p>Unofficial API for beginner</p>
-                <button onclick="wa()">See Project</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <form action="https://formsubmit.co/zemoramd@gmail.com" target="_blank" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" rows="8" required></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
-</main>
-
-<script>
-    // Mobile nav toggle
-    const toggle = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('primary-nav');
-    toggle?.addEventListener('click', () => {
-        const open = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    // Close nav after clicking a link (mobile)
-    nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-        if (window.matchMedia('(max-width: 900px)').matches){
-            nav.classList.remove('open');
-            toggle.setAttribute('aria-expanded','false');
-        }
-    }));
-
-    // Demo handler for buttons
-    function wa(){
-        window.open('https://example.com', '_blank', 'noopener');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zilfa Ardiansyah — Full‑Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* =====================
+       THEME & TOKENS
+       ===================== */
+    :root{
+      --bg: #0f1220;          /* dark base */
+      --bg-elev: #151a2e;     /* elevated surfaces */
+      --text: #E6E9F5;        /* main text */
+      --muted: #AAB0C0;       /* secondary text */
+      --primary: #7C5CFF;     /* brand */
+      --primary-2: #3DC2FF;   /* accent gradient */
+      --ring: rgba(124,92,255,.35);
+      --ok: #22c55e; --warn:#f59e0b; --err:#ef4444;
+      --radius: 16px; --radius-sm:12px; --radius-lg:24px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --maxw: 1140px; --header-h: 72px;
     }
+    @media (prefers-color-scheme: light){
+      :root[data-theme="light"]{
+        --bg:#f7f8ff; --bg-elev:#ffffff; --text:#0f1220; --muted:#505769; --ring: rgba(60, 120, 255, .25);
+      }
+    }
+
+    /* Base */
+    *{box-sizing:border-box; margin:0; padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.7}
+    img{max-width:100%; height:auto; display:block}
+    a{color:inherit; text-decoration:none}
+
+    /* Utility */
+    .container{max-width:var(--maxw); margin-inline:auto; padding:24px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; background:linear-gradient(135deg,var(--primary),var(--primary-2)); color:white; border:0; cursor:pointer; font-weight:700; letter-spacing:.2px; box-shadow:0 6px 20px rgba(124,92,255,.35)}
+    .btn:focus-visible{outline:3px solid var(--ring)}
+    .chip{padding:8px 12px; border-radius:999px; background:rgba(124,92,255,.1); border:1px solid rgba(124,92,255,.25); color:#cfd3ff; font-weight:600; font-size:.9rem}
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:40; backdrop-filter:saturate(140%) blur(10px); background:linear-gradient(180deg, rgba(15,18,32, .8), rgba(15,18,32,.3)); border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{height:var(--header-h); display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--primary),var(--primary-2)); box-shadow:0 6px 18px rgba(61,194,255,.35)}
+    .title{font-weight:800; letter-spacing:.3px}
+
+    nav ul{list-style:none; display:flex; gap:18px}
+    nav a{padding:10px 12px; border-radius:10px; font-weight:600; color:var(--muted)}
+    nav a.active, nav a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+
+    .nav-toggle{display:none; width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.1); background:transparent; color:var(--text)}
+
+    @media (max-width: 900px){
+      .nav-toggle{display:inline-grid; place-items:center}
+      nav{position:fixed; left:0; right:0; top:var(--header-h); background:var(--bg-elev); border-bottom:1px solid rgba(255,255,255,.08); display:none}
+      nav.open{display:block}
+      nav ul{flex-direction:column; gap:8px; padding:12px 16px}
+    }
+
+    /* Sections as tabs (one visible) */
+    main section{display:none; opacity:0; transform:translateY(8px); transition:opacity .25s ease, transform .25s ease}
+    main section.active{display:block; opacity:1; transform:none}
+    section{scroll-margin-top: calc(var(--header-h) + 16px)}
+
+    /* HERO */
+    #home .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; padding-block:48px}
+    #home h1{font-size:clamp(2.1rem, 4.8vw, 4rem); font-weight:800; line-height:1.05; letter-spacing:.2px}
+    .grad{background:linear-gradient(135deg,var(--primary),var(--primary-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .lead{font-size:clamp(1rem, 2.2vw, 1.2rem); color:var(--muted); margin-top:12px}
+    .hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:20px}
+    .avatar{justify-self:end}
+    .avatar img{width:min(320px,100%); aspect-ratio:1/1; object-fit:cover; border-radius:24px; box-shadow:var(--shadow)}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+
+    @media (max-width: 900px){
+      #home .hero{grid-template-columns:1fr; text-align:center}
+      .avatar{justify-self:center}
+    }
+
+    /* ABOUT */
+    #about .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:24px; padding-block:42px}
+    .card{background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
+    .card h2{font-size:1.2rem; margin-bottom:10px}
+    .timeline{display:grid; gap:14px}
+    .tl{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start}
+    .dot{width:10px; height:10px; border-radius:999px; background:var(--primary-2); margin-top:8px}
+    .tl span{font-weight:700}
+    @media (max-width: 900px){ #about .wrap{grid-template-columns:1fr} }
+
+    /* SKILLS */
+    #skills .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; padding-block:32px}
+    .skill{background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:16px}
+    .bar{height:8px; border-radius:999px; background:rgba(255,255,255,.08); margin-top:8px; overflow:hidden}
+    .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--primary),var(--primary-2))}
+
+    /* CERTS */
+    #certs .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; padding-block:32px}
+    .cert{background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:14px; overflow:hidden; box-shadow:var(--shadow)}
+    .cert img{aspect-ratio:16/10; object-fit:cover}
+
+    /* PROJECTS */
+    #projects .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; padding-block:32px}
+    .proj{background:var(--bg-elev); border:1px solid rgba(255,255,255,.06); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow)}
+    .proj img{aspect-ratio:16/10; object-fit:cover}
+    .proj .body{padding:16px; display:flex; flex-direction:column; gap:10px}
+    .proj .actions{margin-top:auto; display:flex; gap:10px}
+
+    /* CONTACT */
+    #contact .wrap{display:grid; grid-template-columns:1fr .9fr; gap:24px; padding-block:36px; align-items:start}
+    form{display:grid; gap:12px}
+    input, textarea{width:100%; padding:12px 14px; border-radius:12px; background:var(--bg); color:var(--text); border:1px solid rgba(255,255,255,.1)}
+    input:focus, textarea:focus{outline:none; box-shadow:0 0 0 3px var(--ring)}
+    textarea{min-height:160px; resize:vertical}
+    @media (max-width: 900px){ #contact .wrap{grid-template-columns:1fr} }
+
+    /* Footer */
+    footer{padding:28px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">Zilfa <span class="muted">/ Full‑Stack</span></div>
+      </div>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">☰<span class="sr-only">Toggle menu</span></button>
+      <nav id="site-nav">
+        <ul role="tablist">
+          <li><a role="tab" aria-controls="home" href="#home" class="active">Home</a></li>
+          <li><a role="tab" aria-controls="about" href="#about">About</a></li>
+          <li><a role="tab" aria-controls="skills" href="#skills">Skills</a></li>
+          <li><a role="tab" aria-controls="certs" href="#certs">Sertifikat</a></li>
+          <li><a role="tab" aria-controls="projects" href="#projects">Project</a></li>
+          <li><a role="tab" aria-controls="contact" href="#contact">Contact</a></li>
+          <li><a id="themeToggle" href="#">☀︎</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HOME -->
+    <section id="home" class="active" role="tabpanel">
+      <div class="hero">
+        <div>
+          <h1>Halo, saya <span class="grad">Zilfa Ardiansyah</span>.</h1>
+          <p class="lead">Full‑Stack Developer yang fokus di pengalaman pengguna cepat, bersih, dan aksesibel. Suka TypeScript, Node.js, dan arsitektur API yang rapi.</p>
+          <div class="badges">
+            <span class="chip">JavaScript/TS</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">REST & Webhook</span>
+            <span class="chip">Responsive UI</span>
+          </div>
+          <div class="hero-cta">
+            <a class="btn" href="#projects">Lihat Project</a>
+            <a class="btn" style="background:transparent; border:1px solid rgba(255,255,255,.18); color:var(--text)" href="#contact">Kontak</a>
+          </div>
+        </div>
+        <div class="avatar">
+          <img src="assets/Photo.png" alt="Foto Zilfa" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" role="tabpanel">
+      <div class="wrap">
+        <article class="card">
+          <h2>Personal</h2>
+          <p>Saya berasal dari Aceh dan bercita‑cita menjadi Full‑Stack Developer yang membangun produk bermanfaat. Tertarik dengan clean code, testing sederhana yang efektif, dan deployment otomatis.</p>
+        </article>
+        <aside class="card">
+          <h2>Education</h2>
+          <ul class="timeline">
+            <li class="tl"><span class="dot"></span><div><span>MIN 20 Aceh Besar</span><div class="muted">Dasar • Ketertarikan awal di TIK</div></div></li>
+            <li class="tl"><span class="dot"></span><div><span>MTsN 2 Aceh Besar</span><div class="muted">Ekskul & lomba teknologi</div></div></li>
+            <li class="tl"><span class="dot"></span><div><span>SMK Negeri 5 Telkom Banda Aceh</span><div class="muted">Fokus Rekayasa Perangkat Lunak</div></div></li>
+          </ul>
+        </aside>
+        <article class="card" style="grid-column:1/-1">
+          <h2>Experience</h2>
+          <p>🏅 Medallion For Excellence — LKSN 2025 WebTech</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" role="tabpanel">
+      <div class="grid">
+        <div class="skill"><strong>HTML/CSS</strong><div class="bar"><i style="width:92%"></i></div><div class="muted">Layout responsif, aksesibilitas</div></div>
+        <div class="skill"><strong>JavaScript/TypeScript</strong><div class="bar"><i style="width:88%"></i></div><div class="muted">ESNext, modul, tooling</div></div>
+        <div class="skill"><strong>Node.js</strong><div class="bar"><i style="width:84%"></i></div><div class="muted">Express, API, auth dasar</div></div>
+        <div class="skill"><strong>UI/UX</strong><div class="bar"><i style="width:80%"></i></div><div class="muted">Komponen reusable, states</div></div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certs" role="tabpanel">
+      <div class="grid">
+        <figure class="cert">
+          <img src="assets/Sertifikat.png" alt="Sertifikat 1" loading="lazy">
+          <figcaption style="padding:12px">Sertifikat — Web Development</figcaption>
+        </figure>
+        <figure class="cert">
+          <img src="assets/Sertifikat.png" alt="Sertifikat 2" loading="lazy">
+          <figcaption style="padding:12px">Sertifikat — JavaScript</figcaption>
+        </figure>
+        <figure class="cert">
+          <img src="assets/Sertifikat.png" alt="Sertifikat 3" loading="lazy">
+          <figcaption style="padding:12px">Sertifikat — Backend</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" role="tabpanel">
+      <div class="grid">
+        <article class="proj">
+          <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Preview Whatsapp API" loading="lazy">
+          <div class="body">
+            <h3>Whatsapp API</h3>
+            <p class="muted">Unofficial API untuk pemula. Fokus belajar webhook & struktur project.</p>
+            <div class="actions">
+              <a class="btn" href="#" onclick="wa()">Demo</a>
+              <a class="btn" style="background:transparent; border:1px solid rgba(255,255,255,.18); color:var(--text)" href="#">Source</a>
+            </div>
+          </div>
+        </article>
+        <article class="proj">
+          <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Preview Project" loading="lazy">
+          <div class="body">
+            <h3>Whatsapp API 2</h3>
+            <p class="muted">Variasi project untuk eksplorasi middleware dan testing ringan.</p>
+            <div class="actions">
+              <a class="btn" href="#" onclick="wa()">Demo</a>
+              <a class="btn" style="background:transparent; border:1px solid rgba(255,255,255,.18); color:var(--text)" href="#">Source</a>
+            </div>
+          </div>
+        </article>
+        <article class="proj">
+          <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Preview Project" loading="lazy">
+          <div class="body">
+            <h3>Whatsapp API 3</h3>
+            <p class="muted">Eksperimen arsitektur layak produksi (env, logger, error handling).</p>
+            <div class="actions">
+              <a class="btn" href="#" onclick="wa()">Demo</a>
+              <a class="btn" style="background:transparent; border:1px solid rgba(255,255,255,.18); color:var(--text)" href="#">Source</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" role="tabpanel">
+      <div class="wrap">
+        <div class="card">
+          <h2>Hubungi saya</h2>
+          <p class="muted">Butuh partner buat proyek web? Kirim pesan, saya akan balas secepatnya.</p>
+        </div>
+        <form action="https://formsubmit.co/zemoramd@gmail.com" target="_blank" method="POST">
+          <label class="sr-only" for="name">Nama</label>
+          <input id="name" type="text" name="name" placeholder="Your Name" required>
+          <label class="sr-only" for="email">Email</label>
+          <input id="email" type="email" name="email" placeholder="Your Email" required>
+          <label class="sr-only" for="message">Pesan</label>
+          <textarea id="message" name="message" placeholder="Your Message" rows="8" required></textarea>
+          <button class="btn" type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="y"></span> Zilfa Ardiansyah • Dibuat dengan HTML/CSS/JS</div>
+  </footer>
+
+  <script>
+    // =====================
+    // NAV (tabs) + HASH ROUTER
+    // =====================
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('site-nav');
+    const tabs = document.querySelectorAll('nav a[role="tab"]');
+    const panels = document.querySelectorAll('main section[role="tabpanel"]');
+
+    toggle?.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    function activate(id){
+      const target = document.querySelector(id);
+      if(!target) return;
+      panels.forEach(p => p.classList.remove('active'));
+      target.classList.add('active');
+      tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href')===id));
+      if (window.matchMedia('(max-width: 900px)').matches){ nav.classList.remove('open'); toggle?.setAttribute('aria-expanded','false'); }
+      if(location.hash!==id){ history.replaceState(null,'',id); }
+    }
+    tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); activate(t.getAttribute('href')); }));
+    window.addEventListener('hashchange', () => activate(location.hash));
+    activate(location.hash || '#home');
+
+    // Theme toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    themeBtn?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const now = root.getAttribute('data-theme')==='light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', now);
+      themeBtn.textContent = now==='light' ? '☀︎' : '☾';
+    });
+
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Demo open
+    function wa(){ window.open('https://example.com','_blank','noopener'); }
     window.wa = wa;
-</script>
+  </script>
 </body>
 </html>
