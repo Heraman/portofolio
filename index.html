@@ -1,106 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Zilfa Ardiansyah || FullStack Developer</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#f5f5f5; --text:#333; --muted:#555; --card:#f9f9f9; --border:#eee; --accent:#333;
+            --maxw:1100px; --radius:12px; --shadow:0 4px 12px rgba(0,0,0,.06);
+            --header-h:64px;
+        }
+        *{box-sizing:border-box; margin:0; padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
+        img{max-width:100%; height:auto; display:block}
+
+        /* Layout helpers */
+        .container{max-width:var(--maxw); padding:24px; margin-inline:auto}
+        section{scroll-margin-top: calc(var(--header-h) + 16px)}
+
+        /* Header */
+        header{position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--border)}
+        .nav-inner{display:flex; align-items:center; justify-content:space-between; height:var(--header-h); gap:16px; padding-inline:16px}
+        .logo{font-weight:700; color:var(--text); text-decoration:none; font-size:1.25rem}
+
+        nav ul{list-style:none; display:flex; gap:18px}
+        nav a{color:var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:1rem}
+        nav a:hover{background:var(--text); color:#fff}
+
+        /* Mobile nav */
+        .nav-toggle{display:none; background:transparent; border:0; width:40px; height:40px; align-items:center; justify-content:center; border-radius:8px}
+        .nav-toggle:focus-visible{outline:2px solid var(--text)}
+        .hamburger{width:22px; height:2px; background:var(--text); position:relative}
+        .hamburger::before,.hamburger::after{content:""; position:absolute; left:0; right:0; height:2px; background:var(--text)}
+        .hamburger::before{top:-6px} .hamburger::after{top:6px}
+
+        @media (max-width: 900px){
+            .nav-toggle{display:inline-flex}
+            nav{position:fixed; inset:var(--header-h) 0 auto 0; background:#fff; border-bottom:1px solid var(--border); display:none}
+            nav.open{display:block}
+            nav ul{flex-direction:column; padding:12px 16px}
+        }
+
+        /* Hero */
+        #home{display:grid; place-items:center; text-align:center; padding-block:48px}
+        #home h1{font-size:clamp(1.8rem, 4.5vw, 2.8rem); color:#222; margin-bottom:8px}
+        #home p{font-size:clamp(1rem, 2.5vw, 1.2rem); color:var(--muted); margin-bottom:22px}
+        #home img{max-width:240px; border-radius:50%; box-shadow:0 8px 20px rgba(0,0,0,.1); transition:transform .3s}
+        #home img:hover{transform:scale(1.04)}
+
+        /* About */
+        #about{padding-block:48px}
+        #about .card{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px}
+        #about .card > div{background:var(--card); padding:20px 24px; border-radius:var(--radius); box-shadow:var(--shadow); transition:transform .3s}
+        #about .card > div:hover{transform:translateY(-4px)}
+        #about h1{font-size:1.25rem; margin-bottom:10px; color:#222}
+        #about p, #about li{color:var(--muted); font-size:1rem}
+        #about ul{padding-left:18px; list-style:disc}
+
+        /* Sertifikat */
+        #sertifikat{padding-block:48px; text-align:center}
+        #sertifikat .sertifikat{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
+        #sertifikat img{border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,.1); transition:transform .3s, box-shadow .3s}
+        #sertifikat img:hover{transform:scale(1.02); box-shadow:0 8px 24px rgba(0,0,0,.18)}
+
+        /* Projects */
+        #project{padding-block:48px}
+        #project .project{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px}
+        #project .project div{background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column}
+        #project h1{font-size:1.1rem; color:#222; margin-bottom:8px}
+        #project p{color:var(--muted); margin:8px 0 14px}
+        #project img{border-radius:10px; margin-bottom:10px; box-shadow:0 2px 8px rgba(0,0,0,.08)}
+        #project button{margin-top:auto; background:var(--accent); color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer}
+        #project button:hover{background:#555}
+
+        /* Contact */
+        #contact{padding-block:48px; display:grid; place-items:center; text-align:center}
+        #contact form{width:min(100%, 640px); display:flex; flex-direction:column; gap:14px}
+        #contact input, #contact textarea{padding:12px 14px; border:1px solid #ccc; border-radius:10px; font:inherit; resize:vertical; min-height:44px}
+        #contact textarea{min-height:160px}
+        #contact input:focus, #contact textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(51,51,51,.1)}
+        #contact button[type=submit]{background:var(--accent); color:#fff; border:0; padding:12px; border-radius:10px; cursor:pointer}
+        #contact button[type=submit]:hover{background:#555}
+
+        /* Utilities for ultra-small screens */
+        @media (max-width:480px){
+            .container{padding:16px}
+            #home img{max-width:180px}
+            .logo{font-size:1.1rem}
+        }
+    </style>
 </head>
 <body id="gg">
-    <header>
-        <a class="logo" href="/">Portofolio</a>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="#gg">Home</a>
-                    </li>
-                    <li>
-                        <a href="#about">About me</a>
-                    </li>
-                    <li>
-                        <a href="#sertifikat">Sertifikat</a>
-                    </li>
-                    <li>
-                        <a href="#project">Project</a>
-                    </li>
-                    <li>
-                        <a href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </nav>
-    </header>
-    <div class="container">
-        <section id="home">
-            <h1>Zilfa Ardiansyah</h1>
-            <p>Seorang yang memiliki minat di FullStack Developer</p>
-            <img src="assets/Photo.png" alt="">
-        </section>
-        <section id="about">
-            <div class="card">
-                <div>
-                    <h1>Personal</h1>
-                    <p>Perkenalkan aku Zilfa Ardiansyah, Aku berasal dari Aceh.
-                        aku memiliki cita cita menjadi seorang FullStack Developer
-                    </p>
-                </div>
-                <div>
-                    <h1>Education</h1>
-                    <ul>
-                        <li>
-                            Min 20 Aceh Besar
-                        </li>
-                        <li>
-                            MTsN 2 Aceh Besar
-                        </li>
-                        <li>
-                            SMK Negeri 5 Telkom Banda Aceh
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h1>Experience</h1>
-                    <p>🏅 Medallion For Excellence LKSN 2025 WebTech</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="sertifikat">
-            <div class="sertifikat">
-                <img src="assets/Sertifikat.png" alt="">
-                <img src="assets/Sertifikat.png" alt="">
-                <img src="assets/Sertifikat.png" alt="">
-            </div>
-        </section>
-        <section id="project">
-            <div class="project">
-                <div>
-                    <h1>Whatsapp API</h1>
-                    <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="">
-                    <p>Unofficial API for beginner</p>
-                    <button onclick="wa()">See Project</button>
-                </div>
-                <div>
-                    <h1>Whatsapp API</h1>
-                    <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="">
-                    <p>Unofficial API for beginner</p>
-                    <button onclick="wa()">See Project</button>
-                </div>
-                <div>
-                    <h1>Whatsapp API</h1>
-                    <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="">
-                    <p>Unofficial API for beginner</p>
-                    <button onclick="wa()">See Project</button>
-                </div>
-            </div>
-        </section>
-        <section id="contact">
-            <form action="https://formsubmit.co/zemoramd@gmail.com" target="_blank" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </section>
+<header>
+    <div class="nav-inner">
+        <a class="logo" href="#gg">Portofolio</a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+            <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <nav id="primary-nav">
+            <ul>
+                <li><a href="#gg">Home</a></li>
+                <li><a href="#about">About me</a></li>
+                <li><a href="#sertifikat">Sertifikat</a></li>
+                <li><a href="#project">Project</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </div>
+</header>
+
+<main class="container">
+    <section id="home">
+        <h1>Zilfa Ardiansyah</h1>
+        <p>Seorang yang memiliki minat di FullStack Developer</p>
+        <img src="assets/Photo.png" alt="Foto profil Zilfa" loading="lazy">
+    </section>
+
+    <section id="about">
+        <div class="card">
+            <div>
+                <h1>Personal</h1>
+                <p>Perkenalkan aku Zilfa Ardiansyah, Aku berasal dari Aceh.
+                    Aku memiliki cita-cita menjadi seorang FullStack Developer.
+                </p>
+            </div>
+            <div>
+                <h1>Education</h1>
+                <ul>
+                    <li>MIN 20 Aceh Besar</li>
+                    <li>MTsN 2 Aceh Besar</li>
+                    <li>SMK Negeri 5 Telkom Banda Aceh</li>
+                </ul>
+            </div>
+            <div>
+                <h1>Experience</h1>
+                <p>🏅 Medallion For Excellence LKSN 2025 WebTech</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sertifikat">
+        <div class="sertifikat">
+            <img src="assets/Sertifikat.png" alt="Sertifikat 1" loading="lazy">
+            <img src="assets/Sertifikat.png" alt="Sertifikat 2" loading="lazy">
+            <img src="assets/Sertifikat.png" alt="Sertifikat 3" loading="lazy">
+        </div>
+    </section>
+
+    <section id="project">
+        <div class="project">
+            <div>
+                <h1>Whatsapp API</h1>
+                <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Pratinjau proyek Whatsapp API" loading="lazy">
+                <p>Unofficial API for beginner</p>
+                <button onclick="wa()">See Project</button>
+            </div>
+            <div>
+                <h1>Whatsapp API</h1>
+                <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Pratinjau proyek Whatsapp API" loading="lazy">
+                <p>Unofficial API for beginner</p>
+                <button onclick="wa()">See Project</button>
+            </div>
+            <div>
+                <h1>Whatsapp API</h1>
+                <img src="https://i.pinimg.com/1200x/44/e9/9e/44e99ef2c222ab3433157db77eafe244.jpg" alt="Pratinjau proyek Whatsapp API" loading="lazy">
+                <p>Unofficial API for beginner</p>
+                <button onclick="wa()">See Project</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <form action="https://formsubmit.co/zemoramd@gmail.com" target="_blank" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="8" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+</main>
+
+<script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
+    toggle?.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close nav after clicking a link (mobile)
+    nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        if (window.matchMedia('(max-width: 900px)').matches){
+            nav.classList.remove('open');
+            toggle.setAttribute('aria-expanded','false');
+        }
+    }));
+
+    // Demo handler for buttons
+    function wa(){
+        window.open('https://example.com', '_blank', 'noopener');
+    }
+    window.wa = wa;
+</script>
 </body>
 </html>
